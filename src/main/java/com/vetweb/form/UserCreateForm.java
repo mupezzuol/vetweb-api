@@ -2,16 +2,28 @@ package com.vetweb.form;
 
 import java.util.Set;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.vetweb.model.Role;
 import com.vetweb.model.User;
 
 public class UserCreateForm {
+	
+	private Long idClinic;
 
+	@NotNull @NotEmpty
 	private String name;
+	
+	@NotNull @NotEmpty
 	private String email;
+	
+	@NotNull @NotEmpty
 	private String password;
+	
+	@NotNull @NotEmpty
 	private Set<Role> roles;
 		
 	//Converter TopicoForm TO Topico
@@ -55,5 +67,13 @@ public class UserCreateForm {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-		
+
+	public Long getIdClinic() {
+		return idClinic;
+	}
+
+	public void setIdClinic(Long idClinic) {
+		this.idClinic = idClinic;
+	}
+	
 }

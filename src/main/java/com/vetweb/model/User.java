@@ -9,7 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -34,8 +36,13 @@ public class User implements UserDetails {
 	@NotNull @NotEmpty
 	private String passwordUser;
 	
+	@NotNull @NotEmpty
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private Set<Role> roles;
+	
+	@ManyToOne
+	@JoinColumn(name="fk_clinic")
+	private Clinic clinic;
 	
 	//Constructor's
 	public User() {
@@ -59,6 +66,10 @@ public class User implements UserDetails {
 		this.roles = roles;
 	}
 
+
+	public User(Clinic clinic) {
+		
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -144,4 +155,12 @@ public class User implements UserDetails {
 		this.roles = roles;
 	}
 
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+	
 }
