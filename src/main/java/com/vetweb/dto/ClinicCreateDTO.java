@@ -8,7 +8,6 @@ public class ClinicCreateDTO {
 	private String razaoSocial;
 	private String owner;
 	
-	
 	//Constructor's
 	public ClinicCreateDTO(Clinic clinic) {
 		super();
