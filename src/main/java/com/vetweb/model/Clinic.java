@@ -26,7 +26,11 @@ public class Clinic {
 			cascade = CascadeType.ALL)
 	private List<User> users;
 
-
+	
+	public Clinic() {
+		super();
+	}
+	
 	public Clinic(String cnpj, String razaoSocial, String owner, List<User> users) {
 		super();
 		this.cnpj = cnpj;

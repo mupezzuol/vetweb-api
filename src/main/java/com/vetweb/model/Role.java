@@ -23,6 +23,11 @@ public class Role implements GrantedAuthority{
 	private RoleEnum name;
 	
 	
+	public Role() {
+		super();
+	}
+
+
 	@Override
 	public String getAuthority() {
 		return null;
