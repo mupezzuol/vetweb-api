@@ -3,21 +3,29 @@ package com.vetweb.entities;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity(name = "tbl_clinic")
+@Entity(name = "ClinicEntity")
+@Table(name = "tbl_clinic")
 public class Clinic {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name = "cnpj")
 	private String cnpj;
+	
+	@Column(name = "razao_social")
 	private String razaoSocial;
+	
+	@Column(name = "owner")
 	private String owner;
 	
 	@OneToMany(mappedBy = "clinic", 
