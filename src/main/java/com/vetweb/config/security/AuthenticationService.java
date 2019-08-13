@@ -8,15 +8,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.vetweb.model.User;
-import com.vetweb.repository.UserRepository;
+import com.vetweb.entities.User;
+import com.vetweb.repositories.IUserRepository;
 
 
 @Service
 public class AuthenticationService implements UserDetailsService{
 
 	@Autowired
-	UserRepository userRepository;
+	IUserRepository userRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

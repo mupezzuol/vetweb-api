@@ -1,4 +1,4 @@
-package com.vetweb.model;
+package com.vetweb.entities;
 
 import java.util.List;
 

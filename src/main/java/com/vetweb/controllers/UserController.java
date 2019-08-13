@@ -1,4 +1,4 @@
-package com.vetweb.controller;
+package com.vetweb.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,34 +13,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vetweb.dto.UserCreateDTO;
-import com.vetweb.form.UserCreateForm;
-import com.vetweb.model.Clinic;
-import com.vetweb.model.User;
-import com.vetweb.service.ClinicService;
-import com.vetweb.service.UserService;
+import com.vetweb.entities.Clinic;
+import com.vetweb.entities.User;
+import com.vetweb.models.dto.UserCreateDTO;
+import com.vetweb.models.form.UserCreateForm;
+import com.vetweb.services.IClinicService;
+import com.vetweb.services.IUserService;
 
 @RestController
 @RequestMapping("/v1/user")
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	
 	@Autowired
-	private ClinicService clinicService;
+	private IClinicService clinicService;
+	
 	
 	@GetMapping()
 	public ResponseEntity<List<User>> findAll() {
 		return ResponseEntity.ok(this.userService.findAll());
 	}
 	
+	
 	@PostMapping()
 	public ResponseEntity<UserCreateDTO> save(@RequestBody @Valid UserCreateForm userCreateForm) {
 		
 		User user = userCreateForm.converterToUser();
 		
-		Optional<Clinic> optional = clinicService.findById(userCreateForm.getIdClinic());
+		Optional<Clinic> optional = this.clinicService.findById(userCreateForm.getIdClinic());
 		
 		user.setClinic(optional.get());
 		

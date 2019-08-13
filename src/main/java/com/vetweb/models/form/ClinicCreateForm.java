@@ -1,9 +1,9 @@
-package com.vetweb.form;
+package com.vetweb.models.form;
 
 import java.util.List;
 
-import com.vetweb.model.Clinic;
-import com.vetweb.model.User;
+import com.vetweb.entities.Clinic;
+import com.vetweb.entities.User;
 
 public class ClinicCreateForm {
 

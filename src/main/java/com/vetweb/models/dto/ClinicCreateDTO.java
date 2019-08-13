@@ -1,6 +1,6 @@
-package com.vetweb.dto;
+package com.vetweb.models.dto;
 
-import com.vetweb.model.Clinic;
+import com.vetweb.entities.Clinic;
 
 public class ClinicCreateDTO {
 	

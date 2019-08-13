@@ -1,4 +1,4 @@
-package com.vetweb.model;
+package com.vetweb.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import com.vetweb.model.enums.RoleEnum;
+import com.vetweb.enums.RoleEnum;
 
 @Entity(name = "tbl_role")
 public class Role implements GrantedAuthority{

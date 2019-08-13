@@ -11,17 +11,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.vetweb.model.User;
-import com.vetweb.repository.UserRepository;
+import com.vetweb.entities.User;
+import com.vetweb.repositories.IUserRepository;
 
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
 	
 	private TokenService tokenService;
-	private UserRepository userRepository;
+	private IUserRepository userRepository;
 	
 	
 	// Manual dependency injection
-	public AuthenticationTokenFilter(TokenService tokenService, UserRepository userRepository) {
+	public AuthenticationTokenFilter(TokenService tokenService, IUserRepository userRepository) {
 		super();
 		this.tokenService = tokenService;
 		this.userRepository = userRepository;

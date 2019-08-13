@@ -1,4 +1,4 @@
-package com.vetweb.controller.auth;
+package com.vetweb.controllers.auth;
 
 public class TokenDTO {
 	

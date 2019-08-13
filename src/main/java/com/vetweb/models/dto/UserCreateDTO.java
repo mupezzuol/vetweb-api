@@ -1,9 +1,9 @@
-package com.vetweb.dto;
+package com.vetweb.models.dto;
 
 import java.util.Set;
 
-import com.vetweb.model.Role;
-import com.vetweb.model.User;
+import com.vetweb.entities.Role;
+import com.vetweb.entities.User;
 
 public class UserCreateDTO {
 

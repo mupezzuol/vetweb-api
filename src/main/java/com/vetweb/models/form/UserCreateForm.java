@@ -1,4 +1,4 @@
-package com.vetweb.form;
+package com.vetweb.models.form;
 
 import java.util.Set;
 
@@ -7,8 +7,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.vetweb.model.Role;
-import com.vetweb.model.User;
+import com.vetweb.entities.Role;
+import com.vetweb.entities.User;
 
 public class UserCreateForm {
 	

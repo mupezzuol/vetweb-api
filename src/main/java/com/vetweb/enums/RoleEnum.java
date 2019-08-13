@@ -1,4 +1,4 @@
-package com.vetweb.model.enums;
+package com.vetweb.enums;
 
 public enum RoleEnum {
 
