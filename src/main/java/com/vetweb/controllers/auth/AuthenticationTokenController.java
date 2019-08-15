@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vetweb.config.security.TokenService;
 
+import io.swagger.annotations.Api;
 
+@Api(tags="Authentication Token", description="Access token generation")
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationTokenController {

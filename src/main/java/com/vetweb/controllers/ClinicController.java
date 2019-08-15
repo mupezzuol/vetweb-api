@@ -15,6 +15,9 @@ import com.vetweb.models.dto.ClinicCreateDTO;
 import com.vetweb.models.form.ClinicCreateForm;
 import com.vetweb.services.IClinicService;
 
+import io.swagger.annotations.Api;
+
+@Api(tags="Clinic Controller", description="Controller Description and....")
 @RestController
 @RequestMapping("/v1/clinic")
 public class ClinicController {

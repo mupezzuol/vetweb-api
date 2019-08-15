@@ -6,15 +6,8 @@ import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.vetweb.controllers.auth.LoginForm;
-import com.vetweb.controllers.auth.TokenDTO;
 import com.vetweb.entities.Clinic;
-import com.vetweb.entities.Role;
 import com.vetweb.entities.User;
-import com.vetweb.models.dto.ClinicCreateDTO;
-import com.vetweb.models.dto.UserCreateDTO;
-import com.vetweb.models.form.ClinicCreateForm;
-import com.vetweb.models.form.UserCreateForm;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
