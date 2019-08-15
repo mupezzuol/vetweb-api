@@ -69,7 +69,7 @@ public class SwaggerConfiguration {
 		
 		//Entities
 		modelsForDisable.add(Clinic.class);
-		modelsForDisable.add(Role.class);
+		//modelsForDisable.add(Role.class);
 		modelsForDisable.add(User.class);
 		
 		//Models DTO
