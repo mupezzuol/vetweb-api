@@ -38,7 +38,7 @@ public class UserController {
 	
 	
 	@PostMapping()
-	public ResponseEntity<UserCreateDTO> save(@RequestBody @Valid UserCreateForm userCreateForm) {
+	public ResponseEntity<UserCreateDTO> createUser(@RequestBody @Valid UserCreateForm userCreateForm) {
 		
 		User user = userCreateForm.converterToUser();
 		
