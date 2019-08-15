@@ -39,8 +39,10 @@ public class UserController {
 	
 	@ApiOperation(value = "Find all Users.")
 	@GetMapping()
-	public ResponseEntity<List<User>> findAll() {
-		return ResponseEntity.ok(this.userService.findAll());
+	public ResponseEntity<List<UserCreateDTO>> findAll() {
+		List<User> users = this.userService.findAll();
+		List<UserCreateDTO> usersDto = new User().converterToListUserCreateDto(users);
+		return ResponseEntity.ok(usersDto);
 	}
 	
 	

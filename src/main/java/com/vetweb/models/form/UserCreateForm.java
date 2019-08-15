@@ -26,7 +26,7 @@ public class UserCreateForm {
 	@NotNull @NotEmpty
 	private Set<Role> roles;
 		
-	//Converter TopicoForm TO Topico
+	//Converter UserCreateForm TO User
 	public User converterToUser() {
 		return new User(
 				this.name, 

@@ -22,7 +22,6 @@ public class UserCreateDTO {
 		this.roles = user.getRoles();
 	}
 
-	
 	public Long getId() {
 		return id;
 	}

@@ -1,6 +1,8 @@
 package com.vetweb.entities;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,6 +22,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.vetweb.models.dto.UserCreateDTO;
 
 @Entity(name = "UserEntity")
 @Table(name = "tbl_user")
@@ -70,6 +74,22 @@ public class User implements UserDetails {
 		this.email = email;
 		this.passwordUser = passwordUser;
 		this.roles = roles;
+	}
+	
+	
+	//Converter User TO UserCreateDTO
+	public List<UserCreateDTO> converterToListUserCreateDto(List<User> users) {
+		List<UserCreateDTO> usersDto = new ArrayList<>();
+		
+		users.forEach( (user) -> {
+			usersDto.add(user.convertToUserCreateDto(user));
+		});
+		
+		return usersDto;
+	}
+	
+	public UserCreateDTO convertToUserCreateDto(User user) {
+		return new UserCreateDTO(user);
 	}
 
 
