@@ -48,28 +48,33 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	// Authorization Settings (URL's, who can access the URL, access profile etc...)
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/").permitAll()//Home
-			.antMatchers(HttpMethod.POST, "/auth").permitAll()//Login
-			.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-			.anyRequest().authenticated()
-			.and().csrf().disable()
-			.sessionManagement()
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)//Set Stateless
-			
-			//Pass created Token filter
-			.and().addFilterBefore(
-					new AuthenticationTokenFilter(tokenService, userRepository),
-					UsernamePasswordAuthenticationFilter.class);
+		
+		
+		http
+			.httpBasic().disable()
+			.csrf().disable()
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//Set Stateless
+			.and()
+			.authorizeRequests()
+				.antMatchers(HttpMethod.GET, "/").permitAll()//Home
+				.antMatchers(HttpMethod.POST, "/auth").permitAll()//Login
+				.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+				.anyRequest().authenticated()
+				.and().csrf().disable()
+				.sessionManagement()
+				
+				//Pass created Token filter
+				.and()
+				.addFilterBefore(new AuthenticationTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	
 	//Static resource settings (CSS, JS, Images etc...)
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		// Release addresses for Swagger
 		web.ignoring()
-			.antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+			.antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**")
+			.antMatchers(HttpMethod.POST, "/auth");
 	}
 	
 	

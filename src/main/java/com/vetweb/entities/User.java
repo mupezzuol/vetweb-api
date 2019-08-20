@@ -25,6 +25,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.vetweb.models.dto.UserCreateDTO;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Data
 @Entity(name = "UserEntity")
 @Table(name = "tbl_user")
 public class User implements UserDetails {
@@ -44,40 +55,28 @@ public class User implements UserDetails {
 	
 	@NotNull @NotEmpty
 	@Column(name = "password_user")
-	private String passwordUser;
+	private String password;
 	
 	@NotNull @NotEmpty
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	private Set<Role> roles;
+	private Set<Profile> profiles;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_clinic")
 	private Clinic clinic;
 	
+
 	//Constructor's
-	public User() {
-		super();
-	}
-	
-	public User(Long id, String name, String email, String passwordUser, Set<Role> roles) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.passwordUser = passwordUser;
-		this.roles = roles;
-	}
-	
-	public User(String name, String email, String passwordUser, Set<Role> roles) {
+	public User(String name, String email, String password, Set<Profile> profiles) {
 		super();
 		this.name = name;
 		this.email = email;
-		this.passwordUser = passwordUser;
-		this.roles = roles;
+		this.password = password;
+		this.profiles = profiles;
 	}
 	
 	
-	//Converter User TO UserCreateDTO
+	//Converter User TO List<UserCreateDTO>
 	public List<UserCreateDTO> converterToListUserCreateDto(List<User> users) {
 		List<UserCreateDTO> usersDto = new ArrayList<>();
 		
@@ -88,6 +87,7 @@ public class User implements UserDetails {
 		return usersDto;
 	}
 	
+	//Converter User TO UserCreateDTO
 	public UserCreateDTO convertToUserCreateDto(User user) {
 		return new UserCreateDTO(user);
 	}
@@ -95,17 +95,12 @@ public class User implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.roles;
+		return this.profiles;
 	}
 	
 	@Override
 	public String getUsername() {
 		return this.email;
-	}
-	
-	@Override
-	public String getPassword() {
-		return this.passwordUser;
 	}
 
 	@Override
@@ -126,63 +121,6 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", passwordUser=" + passwordUser + ", roles="
-				+ roles + "]";
-	}
-
-	
-	//Getter's and Setter's
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPasswordUser() {
-		return passwordUser;
-	}
-	
-	public void setPasswordUser(String passwordUser) {
-		this.passwordUser = passwordUser;
-	}
-	
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
-
-	public Clinic getClinic() {
-		return clinic;
-	}
-
-	public void setClinic(Clinic clinic) {
-		this.clinic = clinic;
 	}
 	
 }

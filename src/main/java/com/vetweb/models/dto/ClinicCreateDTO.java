@@ -2,6 +2,17 @@ package com.vetweb.models.dto;
 
 import com.vetweb.entities.Clinic;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Data
 public class ClinicCreateDTO {
 	
 	private String cnpj;
@@ -16,24 +27,5 @@ public class ClinicCreateDTO {
 		this.owner = clinic.getOwner();
 	}
 	
-	
-	public String getCnpj() {
-		return cnpj;
-	}
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-	public String getRazaoSocial() {
-		return razaoSocial;
-	}
-	public void setRazaoSocial(String razaoSocial) {
-		this.razaoSocial = razaoSocial;
-	}
-	public String getOwner() {
-		return owner;
-	}
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
 
 }

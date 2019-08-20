@@ -5,6 +5,17 @@ import java.util.List;
 import com.vetweb.entities.Clinic;
 import com.vetweb.entities.User;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Data
 public class ClinicCreateForm {
 
 	private String cnpj;
@@ -17,30 +28,5 @@ public class ClinicCreateForm {
 		return new Clinic(this.cnpj, this.razaoSocial, this.owner, this.users);
 	}
 	
-	
-	public String getCnpj() {
-		return cnpj;
-	}
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-	public String getRazaoSocial() {
-		return razaoSocial;
-	}
-	public void setRazaoSocial(String razaoSocial) {
-		this.razaoSocial = razaoSocial;
-	}
-	public String getOwner() {
-		return owner;
-	}
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-	public List<User> getUsers() {
-		return users;
-	}
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
 	
 }

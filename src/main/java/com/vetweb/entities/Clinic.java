@@ -12,6 +12,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Data
 @Entity(name = "ClinicEntity")
 @Table(name = "tbl_clinic")
 public class Clinic {
@@ -35,10 +46,6 @@ public class Clinic {
 	private List<User> users;
 
 	
-	public Clinic() {
-		super();
-	}
-	
 	public Clinic(String cnpj, String razaoSocial, String owner, List<User> users) {
 		super();
 		this.cnpj = cnpj;
@@ -47,46 +54,5 @@ public class Clinic {
 		this.users = users;
 	}
 
-
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-
-	public String getRazaoSocial() {
-		return razaoSocial;
-	}
-
-	public void setRazaoSocial(String razaoSocial) {
-		this.razaoSocial = razaoSocial;
-	}
-
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
 }

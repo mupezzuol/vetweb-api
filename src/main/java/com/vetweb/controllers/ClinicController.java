@@ -33,7 +33,7 @@ public class ClinicController {
 
 		clinicAndUser.getUsers().forEach((user) -> {
 			user.setClinic(clinicAndUser);
-			user.setPasswordUser(new BCryptPasswordEncoder().encode(user.getPasswordUser()));
+			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 		});
 
 		this.clinicService.save(clinicAndUser);

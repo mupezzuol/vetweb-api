@@ -7,9 +7,20 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.vetweb.entities.Role;
+import com.vetweb.entities.Profile;
 import com.vetweb.entities.User;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Data
 public class UserCreateForm {
 	
 	private Long idClinic;
@@ -24,7 +35,7 @@ public class UserCreateForm {
 	private String password;
 	
 	@NotNull @NotEmpty
-	private Set<Role> roles;
+	private Set<Profile> roles;
 		
 	//Converter UserCreateForm TO User
 	public User converterToUser() {
@@ -34,46 +45,6 @@ public class UserCreateForm {
 				new BCryptPasswordEncoder().encode(this.password),
 				this.roles);
 	}
-	
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
-
-	public Long getIdClinic() {
-		return idClinic;
-	}
-
-	public void setIdClinic(Long idClinic) {
-		this.idClinic = idClinic;
-	}
 	
 }

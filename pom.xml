@@ -90,6 +90,13 @@
 		</dependency>
 		
 		
+		<!-- Utils - Lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <scope>provided</scope>
+		</dependency>
+		
 		
 		<!-- Spring DevTools -->
 		<dependency>

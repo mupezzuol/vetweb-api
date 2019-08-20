@@ -1,10 +1,15 @@
 package com.vetweb.enums;
 
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@NoArgsConstructor
+@ToString
 public enum RoleEnum {
 
-	ADMIN("admin"), 
-	CLINIC_OWNER("clinic_owner"),
-	CLINIC_ASSISTANT("clinic_assistant");
+	ADMIN("ADMIN"), 
+	CLINIC_OWNER("CLINIC_OWNER"),
+	CLINIC_ASSISTANT("CLINIC_ASSISTANT");
 
 	private String description;
 
