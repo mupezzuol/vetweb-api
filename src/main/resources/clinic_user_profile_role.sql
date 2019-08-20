@@ -14,7 +14,7 @@ select * from tbl_user_profiles;
 INSERT INTO tbl_user(email, "name", password_user) VALUES('administrator@gmail.com', 'administrator', '$2a$10$DJr9REpKHS5SknDJxUwVPOXQ6SCI72qt5ki5vvYOa4ln3Hfrh67.u');
 INSERT INTO tbl_user(email, "name", password_user) VALUES('owner@hotmail.com', 'owner', '$2a$10$Ui91L7As0DQzgHiYwTsmv.BrnF9iBY2N3qPpbf/vR6cDAXUPAlqOK');
 INSERT INTO tbl_user(email, "name", password_user) VALUES('assistant@gmail.com', 'assistant', '$2a$10$Ui91L7As0DQzgHiYwTsmv.BrnF9iBY2N3qPpbf/vR6cDAXUPAlqOK');
-INSERT INTO tbl_user(email, "name", password_user) VALUES('murillopezzuol@hotmail.com', 'mu', '$2a$10$Ui91L7As0DQzgHiYwTsmv.BrnF9iBY2N3qPpbf/vR6cDAXUPAlqOK');
+
 
 INSERT INTO tbl_profile("role") VALUES('ADMIN');
 INSERT INTO tbl_profile("role") VALUES('CLINIC_OWNER');
@@ -25,9 +25,12 @@ INSERT INTO tbl_user_profiles(users_id, profiles_id) VALUES(1,2);
 INSERT INTO tbl_user_profiles(users_id, profiles_id) VALUES(1,3);
 INSERT INTO tbl_user_profiles(users_id, profiles_id) VALUES(2,2);
 INSERT INTO tbl_user_profiles(users_id, profiles_id) VALUES(3,3);
+
+-- Insert Clinic + User + Profile + Role
+INSERT INTO public.tbl_clinic (id, cnpj, "owner", razao_social) VALUES(1, '75908592000143', 'Murillo Pezzuol', 'Razao Social LTDA');
+INSERT INTO public.tbl_user (id, email, "name", password_user, fk_clinic) VALUES(4, 'murillopezzuol@hotmail.com', 'mu', '$2a$10$Ui91L7As0DQzgHiYwTsmv.BrnF9iBY2N3qPpbf/vR6cDAXUPAlqOK', 1);
 INSERT INTO tbl_user_profiles(users_id, profiles_id) VALUES(4,1);
 INSERT INTO tbl_user_profiles(users_id, profiles_id) VALUES(4,2);
-INSERT INTO tbl_user_profiles(users_id, profiles_id) VALUES(4,3);
 
 
 
@@ -58,5 +61,5 @@ INSERT INTO tbl_user_profiles(users_id, profiles_id) VALUES(4,3);
             on profiles0_.profiles_id=profile1_.id 
     where
         profiles0_.users_id=4
-
+        
         
