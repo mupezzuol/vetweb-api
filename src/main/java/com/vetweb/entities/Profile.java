@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vetweb.enums.RoleEnum;
 
 import lombok.AllArgsConstructor;
@@ -39,6 +40,7 @@ public class Profile implements GrantedAuthority{
 	private RoleEnum role;
 	
 	@ManyToMany(mappedBy = "profiles")
+	@JsonBackReference
 	private List<User> users;
 	
 

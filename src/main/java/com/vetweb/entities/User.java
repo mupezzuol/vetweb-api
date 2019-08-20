@@ -22,6 +22,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.vetweb.models.dto.UserCreateDTO;
 
 import lombok.AllArgsConstructor;
@@ -58,6 +59,7 @@ public class User implements UserDetails {
 	
 	@NotNull @NotEmpty
 	@ManyToMany(fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Set<Profile> profiles;
 	
 	@ManyToOne
