@@ -16,33 +16,33 @@ import com.vetweb.config.security.TokenService;
 
 import io.swagger.annotations.Api;
 
-@Api(tags="Authentication Token", description="Access token generation")
+@Api(tags = "Authentication Token", description = "Access token generation")
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationTokenController {
+
+	@Autowired
+	private AuthenticationManager authManager;
+
 	
-		@Autowired
-		private AuthenticationManager authManager;
+	@PostMapping
+	public ResponseEntity<TokenDTO> authenticate(@RequestBody @Valid LoginForm loginForm) {
 
-		
-		@PostMapping
-		public ResponseEntity<TokenDTO> authenticate(@RequestBody @Valid LoginForm loginForm){
-			
-			try {
-				authManager.authenticate(new UsernamePasswordAuthenticationToken(loginForm.getEmail(), loginForm.getPassword()));
-				
-				String token = TokenService.createToken(loginForm.getEmail());
-				
-				System.out.println("AQUIIIIIIIIIII: " + token);
-				
-				//Login Successfully Authenticated -> Return Token + Type
-				return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
-				
-			} catch (AuthenticationException e) {
-				return ResponseEntity.badRequest().build();//404
-			}
-			
+		try {
+			authManager.authenticate(
+					new UsernamePasswordAuthenticationToken(loginForm.getEmail(), loginForm.getPassword()));
+
+			String token = TokenService.createToken(loginForm.getEmail());
+
+			System.out.println("AQUIIIIIIIIIII: " + token);
+
+			// Login Successfully Authenticated -> Return Token + Type
+			return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
+
+		} catch (AuthenticationException e) {
+			return ResponseEntity.badRequest().build();// 404
 		}
+	}
+	
 
-		
 }
