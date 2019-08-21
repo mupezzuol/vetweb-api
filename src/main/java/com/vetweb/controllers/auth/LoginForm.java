@@ -5,16 +5,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
-@ToString
 @Data
 public class LoginForm {
 
@@ -24,6 +16,7 @@ public class LoginForm {
 	@NotNull @NotEmpty
 	private String password;
 	
+	private String authCode;
 	
 	//Method get Authentication with Token
 	public UsernamePasswordAuthenticationToken converterToUserPassAuthToken() {

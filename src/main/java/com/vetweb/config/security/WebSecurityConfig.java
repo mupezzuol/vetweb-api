@@ -12,70 +12,70 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.vetweb.repositories.IUserRepository;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	AuthenticationService authenticationService;//Implements: UserDetailsService
+	AuthenticationService authenticationService;// Implements: UserDetailsService
+
 	
-	@Autowired
-	private TokenService tokenService;
-	
-	@Autowired
-	private IUserRepository userRepository;
-	
-	
-	// Manual dependency injection
 	@Override
-	@Bean 
+	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
-	
+
 	
 	// Authentication Settings (access control, login etc...)
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
+		auth
+			.userDetailsService(authenticationService)
+			.passwordEncoder(encoder());
 	}
-	
+
 	
 	// Authorization Settings (URL's, who can access the URL, access profile etc...)
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-		
 		http
-			.httpBasic().disable()
-			.csrf().disable()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//Set Stateless
+			.httpBasic()
+				.disable()
+			.csrf()
+				.disable()
+			.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
-			.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/").permitAll()//Home
-				.antMatchers(HttpMethod.POST, "/auth").permitAll()//Login
-				.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-				.anyRequest().authenticated()
-				.and().csrf().disable()
-				.sessionManagement()
-				
-				//Pass created Token filter
-				.and()
-				.addFilterBefore(new AuthenticationTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
+				.authorizeRequests()
+					.antMatchers(HttpMethod.GET, "/").permitAll()//Home
+					.antMatchers(HttpMethod.POST, "/auth").permitAll()//Login
+					.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+				.anyRequest()
+					.authenticated()
+			.and()
+				.addFilterBefore(new JWTLoginFilter("/auth", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+				.addFilterBefore(new JWTAuthenticationVerifier(), UsernamePasswordAuthenticationFilter.class);
 	}
+
 	
-	
-	//Static resource settings (CSS, JS, Images etc...)
+	// Static resource settings (CSS, JS, Images etc...)
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring()
-			.antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**")
-			.antMatchers(HttpMethod.POST, "/auth");
+			.antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
 	}
 	
+	
+	//Roles for Encoder
+	@Bean
+	public PasswordEncoder encoder() {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder;
+	}
+
 	
 }

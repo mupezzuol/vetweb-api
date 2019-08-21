@@ -1,5 +1,6 @@
 package com.vetweb.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -61,6 +62,8 @@ public class User implements UserDetails {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JsonManagedReference
 	private Set<Profile> profiles;
+	
+	private LocalDate inclusionDate;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_clinic")

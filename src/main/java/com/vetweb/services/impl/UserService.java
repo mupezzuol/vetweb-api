@@ -1,6 +1,7 @@
 package com.vetweb.services.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,22 @@ public class UserService implements IUserService {
 		this.userRepository.save(user);
 		return user;
 	}
+
 	
+	public User findByName(String userName) {
+		try {
+			return userRepository.findByName(userName).get();
+		} catch (NoSuchElementException exception) {
+			return null;
+		}
+	}
+	
+	public User findByEmail(String email) {
+		try {
+			return userRepository.findByEmail(email).get();
+		} catch (NoSuchElementException exception) {
+			return null;
+		}
+	}
 
 }

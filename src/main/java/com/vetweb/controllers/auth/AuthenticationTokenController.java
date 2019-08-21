@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,19 +23,17 @@ public class AuthenticationTokenController {
 	
 		@Autowired
 		private AuthenticationManager authManager;
-		
-		@Autowired
-		private TokenService tokenService;
+
 		
 		@PostMapping
 		public ResponseEntity<TokenDTO> authenticate(@RequestBody @Valid LoginForm loginForm){
 			
-			UsernamePasswordAuthenticationToken login = loginForm.converterToUserPassAuthToken();
-			
 			try {
-				Authentication authenticate = authManager.authenticate(login);//Class: AuthenticationService
+				authManager.authenticate(new UsernamePasswordAuthenticationToken(loginForm.getEmail(), loginForm.getPassword()));
 				
-				String token = tokenService.generateToken(authenticate);
+				String token = TokenService.createToken(loginForm.getEmail());
+				
+				System.out.println("AQUIIIIIIIIIII: " + token);
 				
 				//Login Successfully Authenticated -> Return Token + Type
 				return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
@@ -47,4 +44,5 @@ public class AuthenticationTokenController {
 			
 		}
 
+		
 }
