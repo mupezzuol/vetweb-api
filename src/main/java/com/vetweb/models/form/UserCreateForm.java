@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.vetweb.entities.Profile;
+import com.vetweb.entities.Role;
 import com.vetweb.entities.User;
 
 import lombok.AllArgsConstructor;
@@ -35,7 +35,7 @@ public class UserCreateForm {
 	private String password;
 	
 	@NotNull @NotEmpty
-	private Set<Profile> roles;
+	private Set<Role> roles;
 		
 	//Converter UserCreateForm TO User
 	public User converterToUser() {

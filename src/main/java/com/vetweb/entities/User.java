@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -23,18 +25,15 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.vetweb.models.dto.UserCreateDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @ToString
 @Data
 @Entity(name = "UserEntity")
@@ -44,7 +43,7 @@ public class User implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long userId;
 	
 	@NotNull @NotEmpty
 	@Column(name = "name")
@@ -58,10 +57,13 @@ public class User implements UserDetails {
 	@Column(name = "password_user")
 	private String password;
 	
-	@NotNull @NotEmpty
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JsonManagedReference
-	private Set<Profile> profiles;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "tbl_user_roles",
+	joinColumns = @JoinColumn(
+			name = "user_id", referencedColumnName = "userId"), 
+	inverseJoinColumns = @JoinColumn(
+		name = "role_id", referencedColumnName = "roleId"))
+	private Set<Role> roles;
 	
 	private LocalDate inclusionDate;
 	
@@ -70,13 +72,14 @@ public class User implements UserDetails {
 	private Clinic clinic;
 	
 
+
 	//Constructor's
-	public User(String name, String email, String password, Set<Profile> profiles) {
+	public User(String name, String email, String password, Set<Role> profiles) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.profiles = profiles;
+		//this.profiles = profiles;
 	}
 	
 	
@@ -99,7 +102,7 @@ public class User implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.profiles;
+        return roles;
 	}
 	
 	@Override

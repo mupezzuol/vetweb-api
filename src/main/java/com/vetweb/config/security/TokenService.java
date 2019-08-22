@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,13 +49,22 @@ public class TokenService {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("userEmail", userLogged.getEmail());
 		claims.put("inclusionDate", userLogged.getInclusionDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-		String profiles = userLogged.getAuthorities().stream()
-				.map(r -> r.getAuthority()).collect(Collectors.joining(","));
-		claims.put("profiles", profiles);
+		
+		String[] roles = userLogged.getRoles().stream()
+                .map(role -> role.getName())
+                .toArray(String[]::new);
+		
+		String[] permissions = userLogged.getRoles().stream()
+                .flatMap(role -> role.getPermissions().stream())
+                .map(permission -> permission.getName())
+                .toArray(String[]::new);
+		
+		claims.put("roles", roles);
+		claims.put("permissions", permissions);
 		
 		return TOKEN_PREFIX + " " + Jwts.builder()
 				.setIssuer("Vetweb API - Welcome")
-				.setSubject(userLogged.getId().toString())
+				.setSubject(userLogged.getUserId().toString())
 				.setIssuedAt(new Date())
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.addClaims(claims)
