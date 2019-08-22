@@ -56,7 +56,7 @@ public class TokenService {
 		
 		String[] permissions = userLogged.getRoles().stream()
                 .flatMap(role -> role.getPermissions().stream())
-                .map(permission -> permission.getName())
+                	.map(permission -> permission.getName())
                 .toArray(String[]::new);
 		
 		claims.put("roles", roles);
