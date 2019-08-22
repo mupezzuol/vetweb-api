@@ -19,8 +19,8 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vetweb.controllers.auth.LoginForm;
 import com.vetweb.entities.User;
+import com.vetweb.models.form.LoginForm;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -31,7 +31,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		super(new AntPathRequestMatcher(url));
 		setAuthenticationManager(authenticationManager);
 	}
-
 	
 	// Attemp Login
 	@Override

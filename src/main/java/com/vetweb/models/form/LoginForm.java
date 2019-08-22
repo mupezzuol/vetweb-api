@@ -1,4 +1,4 @@
-package com.vetweb.controllers.auth;
+package com.vetweb.models.form;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
