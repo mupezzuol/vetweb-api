@@ -54,13 +54,13 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		
 		response.addHeader("Access-Control-Expose-Headers", "Authorization");
 		
-		User user = (User) authResult.getPrincipal();
+		UserPrincipal user = (UserPrincipal) authResult.getPrincipal();
 		
 		if (user == null) {
 			throw new BadCredentialsException("Invalid credentials provided for authentication");
 		}
 		
-		TokenService.addTokenToResponse(response, user.getEmail());
+		TokenService.addTokenToResponse(response, user.getUser().getEmail());
 	}
 	
 
