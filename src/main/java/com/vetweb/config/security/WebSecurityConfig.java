@@ -20,10 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	AuthenticationService authenticationService;// Implements: UserDetailsService
+	private AuthenticationService authenticationService;// Implements: UserDetailsService
 
 	
-	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
