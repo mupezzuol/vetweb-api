@@ -2,6 +2,8 @@ package com.vetweb.services.impl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,15 @@ public class UserService implements IUserService {
 	public User findByEmail(String email) {
 		try {
 			return userRepository.findByEmail(email).get();
+		} catch (NoSuchElementException exception) {
+			return null;
+		}
+	}
+
+	@Override
+	public Optional<User> findByUuid(UUID uuid) {
+		try {
+			return userRepository.findByUuid(uuid);
 		} catch (NoSuchElementException exception) {
 			return null;
 		}

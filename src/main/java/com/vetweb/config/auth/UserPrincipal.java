@@ -1,13 +1,11 @@
-package com.vetweb.config.security;
+package com.vetweb.config.auth;
 
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.vetweb.entities.User;
-
 
 public class UserPrincipal implements UserDetails {
 
@@ -15,18 +13,9 @@ public class UserPrincipal implements UserDetails {
 	
 	private final User user;
 	
-    private final Collection<? extends GrantedAuthority> authorities;
-	
-	
 	public UserPrincipal(User user) {
         this.user = user;
-        String[] permissions = user.getRoles().stream()
-                .flatMap(role -> role.getPermissions().stream())
-                .map(permission -> permission.getName())
-                .toArray(String[]::new);
-        this.authorities = AuthorityUtils.createAuthorityList(permissions);
     }
-	
 	
 	public User getUser() {
         return user;
@@ -34,17 +23,22 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+//    	String[] permissions = user.getRoles().stream()
+//                .flatMap(role -> role.getPermissions().stream())
+//                .map(permission -> permission.getName())
+//                .toArray(String[]::new);
+//    	AuthorityUtils.createAuthorityList(permissions);
+        return null;
     }
 
-    @Override
+	@Override
     public String getPassword() {
         return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return user.getUuid().toString();
     }
 
     @Override
