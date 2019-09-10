@@ -37,7 +37,6 @@ public class ClinicController {
 		});
 
 		this.clinicService.save(clinicAndUser);
-
 		return ResponseEntity.ok(new ClinicCreateDTO(clinicAndUser));
 	}
 	
